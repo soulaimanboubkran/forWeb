@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="Boutique.css">
+</head>
+
+<body>
+
+    
+    <header class="main-header">
+        <div class="logo">
+            <div class="logo-main">CX</div>
+            <div class="logo-sub">CapacityX</div>
+        </div>
+
+        <button class="mobile-menu-button">☰</button>
+
+        <nav class="nav-menu">
+            <div class="nav-links">
+                <a href="Home.html">Accueil</a>
+                <a href="Apropos.html">À propos</a>
+                <a href="Boutique.html">Boutique</a>
+                <a href="Blog.html">Blog</a>
+           
+                <a href="Contact.html">Contact</a>
+            </div>
+
+            <div class="right-section">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Recherche...">
+                    <span class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px" class="icon-svg">
+                            <path
+                                d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z" />
+                        </svg>
+                    </span>
+                </div>
+                <div class="login-cart">
+                    <span>Connexion</span>
+                    <div class="cart-icon">
+                        🛒
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="overlay"></div>
+    </header>
+    <!-- Add this after the header -->
+    <div class="social-sidebar">
+        <a href="#" class="social-link facebook"><img src="icons8-facebook.svg" alt="Facebook Icon"></a>
+        <a href="#" class="social-link twitter"><img src="icons8-x.svg" alt="twitter Icon"></a>
+        <a href="#" class="social-link instagram"><img src="icons8-instagram.svg" alt="instagram Icon"></a>
+        <a href="#" class="social-link youtube"><img src="icons8-youtube.svg" alt="youtube Icon"></a>
+    </div>
+
+
+<!--  
+    dima l code dial page li khdamin fiha ikon f wst had div 
+-->
+
+<div class="main-content">
+    <div class="page-layout">
+        <!-- Filter Section -->
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3 class="filter-title">Filtrer par</h3>
+                <!-- Filter by Product Type -->
+                <div class="filter-group">
+                    <h4>Type de produit</h4>
+                    <ul>
+                        <li><input type="radio" name="product-type" id="all" checked> <label for="all">Tout</label></li>
+                        <li><input type="radio" name="product-type" id="pre-workout"> <label for="pre-workout">Pré-entraînement</label></li>
+                        <li><input type="radio" name="product-type" id="capsules"> <label for="capsules">Capsules</label></li>
+                        <li><input type="radio" name="product-type" id="powder"> <label for="powder">Protéine en poudre</label></li>
+                    </ul>
+                </div>
+                <!-- Filter by Price -->
+                <div class="filter-group">
+                    <h4>Prix</h4>
+                    <input type="range" id="price-range" min="15" max="1000" value="1000">
+                    <div class="price-values">
+                        <span>5,00 €</span>
+                        <span>1000,00 €</span>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4>Rabais</h4>
+                    <input type="range" id="discount-range" min="0" max="100" value="100">
+                    <div class="discount-values">
+                        <span>0%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </aside>
+    <!-- Boutique Section -->
+    <section class="featured-products">
+        <h2 class="section-title">BOUTIQUE CAPACITYX</h2>
+        <div class="loader" style="display: none;"></div>
+<div class="products-grid"></div>
+
+        <div class="products-grid">
+            
+        </div>
+    </section>
+</div></div>
+<!--  
+    dima l code dial page li khdamin fiha ikon f wst had div 
+-->
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">CX</div>
+                <div class="footer-sublogo">CapacityX</div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Menu</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Boutique</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Demander à l'expert</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Politiques</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Politique de boutique</a></li>
+                    <li><a href="#">Expédition et retours</a></li>
+                    <li><a href="#">Politique de cookies</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <div class="contact-info">
+                    <p>01 23 45 67 89</p>
+                    <p>47 rue des Couronnes</p>
+                    <p>75020 Paris, France</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link facebook"><img src="icons8-facebook.svg" alt="Facebook Icon"></a>
+                    <a href="#" class="social-link twitter"><img src="icons8-x.svg" alt="twitter Icon"></a>
+                    <a href="#" class="social-link instagram"><img src="icons8-instagram.svg" alt="instagram Icon"></a>
+                    <a href="#" class="social-link youtube"><img src="icons8-youtube.svg" alt="youtube Icon"></a>
+                </div>
+            </div>
+        </div>
+
+      
+    </footer>
+    <script>
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navMenu = document.querySelector('.nav-menu');
+        const overlay = document.querySelector('.overlay');
+
+        mobileMenuButton.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+// Product data structure
+const products = [
+    {
+        name: "Protéine en poudre - Vanille",
+        price: 29.99,
+        type: "powder",
+        discount: 20, // 20% discount
+        image: "images/p1.png",
+        hoverImage: "images/p1h.png"
+    },
+    {
+        name: "BCAA 200 capsules",
+        price: 35.00,
+        type: "capsules",
+        discount: 15, // 15% discount
+        image: "images/p2.png",
+        hoverImage: "images/p2h.png"
+    },
+    {
+        name: "Pré-entraînement - Multi fruits",
+        price: 45.00,
+        discount: 0, // No discount
+        type: "pre-workout",
+        image: "images/p3.png",
+        hoverImage: "images/p3h.png"
+    },
+    {
+        name: "Protein Shake Mix",
+        price: 39.99,
+        type: "powder",
+        discount: 30, // 30% discount
+        image: "images/p1.png",
+        hoverImage: "images/p1h.png"
+    }
+    ,
+    {
+        name: "BCAA en capsules",
+        price: 15.00,
+        type: "capsules",
+        discount: 12, // 30% discount
+        image: "images/p4.png",
+        hoverImage: "images/p4h.png"
+    }
+    ,
+    {
+        name: "BCAA 200 capsules",
+        price: 35.00,
+        type: "capsules",
+        discount: 30, // 30% discount
+        image: "images/p5.png",
+        hoverImage: "images/p5h.png"
+    }
+    ,
+    {
+        name: "Protéine en poudre - Cookies et crème",
+        price: 50.99,
+        type: "powder",
+        discount: 30, // 30% discount
+        image: "images/p6.png",
+        hoverImage: "images/p6h.png"
+    }
+    ,
+    {
+        name: "Protéine en poudre - Chocolat",
+        price: 50.99,
+        type: "powder",
+        discount: 30, // 30% discount
+        image: "images/p7.png"
+    
+    }
+    ,
+    {
+        name: "Protéine en poudre - Beurre de cacahouète",
+        price: 50.99,
+        type: "powder",
+        discount: 30, // 30% discount
+        image: "images/p8.png"
+    },
+    {
+        name: "Protéine en poudre - Cappuccino",
+        price: 50.99,
+        type: "powder",
+        discount: 30, // 30% discount
+        image: "images/p9.png"}
+        ,{
+            name: "Pré-entraînement - Framboise",
+        price: 23.99,
+        type: "pre-workout",
+        discount: 30, // 30% discount
+        image: "images/p10.png",
+         hoverImage: "images/p10h.png"
+        }
+        ,{
+            name: "Pré-entraînement - Pastèque",
+        price: 25.99,
+        type: "pre-workout",
+        discount: 30, // 30% discount
+        image: "images/p11.png"
+        }
+        ,{
+            name: "Pré-entraînement - Cerise",
+        price: 44.99,
+        type: "pre-workout",
+        discount: 22, // 30% discount
+        image: "images/p12.png"
+        }
+        ,{
+            name: "Pré-entraînement - Pomme verte",
+        price: 25.99,
+        type: "pre-workout",
+        discount: 34, // 30% discount
+        image: "images/p13.png"
+        }
+        ,{
+            name: "Pré-entraînement - Limonade",
+        price: 23.99,
+        type: "pre-workout",
+        discount: 22, // 30% discount
+        image: "images/p14.png"
+        }
+    
+];
+
+// Filter state (set to general values to show all products initially)
+const filterState = {
+    productType: 'all',  // 'all' allows all product types
+    maxPrice: 90,        // Set to the max possible price
+    maxDiscount: 100,    // Show products with any discount (0% to 100%)
+    selectedDiscounts: new Set()  // No specific discount filter selected initially
+};
+
+// Initialize filters
+function initializeFilters() {
+    // Product type radio buttons
+    document.querySelectorAll('input[name="product-type"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            filterState.productType = e.target.id;
+            applyFilters();
+        });
+    });
+
+    // Price range slider
+    const priceRange = document.getElementById('price-range');
+    if (priceRange) {
+        const priceValues = document.querySelector('.price-values');
+        const maxPriceSpan = priceValues.querySelector('span:last-child');
+        
+        // Initialize the max price based on the filter state
+        priceRange.value = filterState.maxPrice;
+        maxPriceSpan.textContent = `${filterState.maxPrice.toFixed(2)} €`; // Set initial value
+        
+        priceRange.addEventListener('input', (e) => {
+            filterState.maxPrice = parseFloat(e.target.value);
+            maxPriceSpan.textContent = `${filterState.maxPrice.toFixed(2)} €`; // Update dynamically
+            applyFilters();
+        });
+    }
+
+    // Discount range slider
+    const discountRange = document.getElementById('discount-range');
+    if (discountRange) {
+        const discountValues = document.querySelector('.discount-values');
+        const maxDiscountSpan = discountValues.querySelector('span:last-child');
+        
+        // Initialize the max discount based on the filter state
+        discountRange.value = filterState.maxDiscount;
+        maxDiscountSpan.textContent = `${filterState.maxDiscount}%`; // Set initial value
+        
+        discountRange.addEventListener('input', (e) => {
+            filterState.maxDiscount = parseFloat(e.target.value);
+            maxDiscountSpan.textContent = `${filterState.maxDiscount}%`; // Update dynamically
+            applyFilters();
+        });
+    }
+
+    // Discount checkboxes (if necessary)
+    document.querySelectorAll('.filter-group input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const discountValue = e.target.id === "no-discount" ? 0 : parseInt(e.target.id);
+            if (e.target.checked) {
+                filterState.selectedDiscounts.add(discountValue);
+            } else {
+                filterState.selectedDiscounts.delete(discountValue);
+            }
+            applyFilters();
+        });
+    });
+}
+
+// Filter products
+function filterProducts() {
+    return products.filter(product => {
+        // Default discount to 0 if it's not provided
+        const productDiscount = product.discount || 0;
+        
+        const typeMatch = filterState.productType === 'all' || product.type === filterState.productType;
+        const priceMatch = product.price <= filterState.maxPrice;
+        
+        // Check if product's discount is within the selected range
+        const discountMatch = productDiscount <= filterState.maxDiscount;
+
+        return typeMatch && priceMatch && discountMatch;
+    });
+}
+
+// Calculate discounted price
+function calculateDiscountedPrice(price, discount) {
+    if (!discount) return price;
+    return price * (1 - discount / 100);
+}
+function renderProducts(filteredProducts) {
+    const productsGrid = document.querySelector('.products-grid');
+    const loader = document.querySelector('.loader');
+    
+    // Show loader while the products are being loaded
+    loader.style.display = 'block';
+    productsGrid.style.opacity = '0';
+    
+    setTimeout(() => {
+        productsGrid.innerHTML = '';
+        
+        if (filteredProducts.length === 0) {
+            productsGrid.innerHTML = ` 
+                <div class="no-products-message">
+                    Aucun produit ne correspond à vos critères de recherche.
+                </div>
+            `;
+        } else {
+            filteredProducts.forEach(product => {
+                const hasDiscount = product.discount > 0;
+                const discountedPrice = calculateDiscountedPrice(product.price, product.discount);
+                
+                const productCard = `
+                    <div class="product-card">
+                        ${hasDiscount ? `
+                            <span class="portions-badge">
+                                -${product.discount}% off
+                            </span>
+                        ` : ''}
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" data-hover="${product.hoverImage ? product.hoverImage : product.image}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <div class="price-container">
+                                ${hasDiscount ? `
+                                    <p class="original-price">${product.price.toFixed(2)} €</p>
+                                    <p class="price">${discountedPrice.toFixed(2)} €</p>
+                                ` : `
+                                    <p class="price">${product.price.toFixed(2)} €</p>
+                                `}
+                            </div>
+                        </div>
+                        <div class="product-footer">
+                            AJOUTER AU PANIER
+                        </div>
+                    </div>
+                `;
+                productsGrid.insertAdjacentHTML('beforeend', productCard);
+            });
+        }
+        
+        // Initialize hover effects if needed
+        initializeHoverEffects();
+
+        // Hide loader and show the products grid
+        loader.style.display = 'none';
+        productsGrid.style.opacity = '1';
+    }, 300); // Adjust the timeout as per your needs
+}
+
+// Initialize hover effects
+function initializeHoverEffects() {
+    document.querySelectorAll('.product-image img').forEach(img => {
+        const hoverImage = img.getAttribute('data-hover');
+        const originalImage = img.src;
+        
+        img.addEventListener('mouseenter', () => {
+            img.src = hoverImage;
+        });
+        
+        img.addEventListener('mouseleave', () => {
+            img.src = originalImage;
+        });
+    });
+}
+
+// Apply filters with debounce
+let filterTimeout;
+function applyFilters() {
+    clearTimeout(filterTimeout);
+    filterTimeout = setTimeout(() => {
+        const filteredProducts = filterProducts();
+        renderProducts(filteredProducts);
+    }, 250);
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeFilters();
+    applyFilters();
+});
+
+    </script>
+</body>
+</html>

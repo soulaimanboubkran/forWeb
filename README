@@ -1,0 +1,20 @@
+
+/// HADCHI DIMA F STYLE DIAL AY PAGE 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0B1423;
+}
+
+
+//// O HADO HOMA LES COLORS 
+
+FOR THE GREEN (#7CFF6B)
+FOR THE background (#0B1423)
+FOR THE <h2>     font-size: 40px;
+FOR THE <p>  font-size: 16px;

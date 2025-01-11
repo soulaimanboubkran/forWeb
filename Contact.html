@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 100vh; /* This ensures minimum height of viewport */
+}
+</style>
+<body>
+
+    
+    <header class="main-header">
+        <div class="logo">
+            <div class="logo-main">CX</div>
+            <div class="logo-sub">CapacityX</div>
+        </div>
+
+        <button class="mobile-menu-button">☰</button>
+
+        <nav class="nav-menu">
+            <div class="nav-links">
+                <a href="Home.html">Accueil</a>
+                <a href="Apropos.html">À propos</a>
+                <a href="Boutique.html">Boutique</a>
+                <a href="Blog.html">Blog</a>
+           
+                <a href="Contact.html">Contact</a>
+            </div>
+
+            <div class="right-section">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Recherche...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="login-cart">
+                    <span>Connexion</span>
+                    <div class="cart-icon">
+                        🛒
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="overlay"></div>
+    </header>
+    <!-- Add this after the header -->
+    <div class="social-sidebar">
+        <a href="#" class="social-link facebook"><img src="icons8-facebook.svg" alt="Facebook Icon"></a>
+        <a href="#" class="social-link twitter"><img src="icons8-x.svg" alt="twitter Icon"></a>
+        <a href="#" class="social-link instagram"><img src="icons8-instagram.svg" alt="instagram Icon"></a>
+        <a href="#" class="social-link youtube"><img src="icons8-youtube.svg" alt="youtube Icon"></a>
+    </div>
+
+
+<!--  
+    dima l code dial page li khdamin fiha ikon f wst had div 
+-->
+
+
+<div class="main-content">
+    <!-- Your page content goes here 
+      dima l code dial page li khdamin fiha ikon f wst had div 
+       ............ -->
+
+
+
+
+
+</div>
+
+<!--  
+    dima l code dial page li khdamin fiha ikon f wst had div 
+-->
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">CX</div>
+                <div class="footer-sublogo">CapacityX</div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Menu</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Boutique</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Demander à l'expert</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Politiques</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Politique de boutique</a></li>
+                    <li><a href="#">Expédition et retours</a></li>
+                    <li><a href="#">Politique de cookies</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <div class="contact-info">
+                    <p>01 23 45 67 89</p>
+                    <p>47 rue des Couronnes</p>
+                    <p>75020 Paris, France</p>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link facebook"><img src="icons8-facebook.svg" alt="Facebook Icon"></a>
+                    <a href="#" class="social-link twitter"><img src="icons8-x.svg" alt="twitter Icon"></a>
+                    <a href="#" class="social-link instagram"><img src="icons8-instagram.svg" alt="instagram Icon"></a>
+                    <a href="#" class="social-link youtube"><img src="icons8-youtube.svg" alt="youtube Icon"></a>
+                </div>
+            </div>
+        </div>
+
+      
+    </footer>
+    <script>
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const navMenu = document.querySelector('.nav-menu');
+        const overlay = document.querySelector('.overlay');
+
+        mobileMenuButton.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
