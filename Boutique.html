@@ -38,6 +38,7 @@
                         </svg>
                     </span>
                 </div>
+
                 <div class="login-cart">
                     <span>Connexion</span>
                     <div class="cart-icon">
@@ -185,126 +186,134 @@
 // Product data structure
 const products = [
     {
+        id: 1,
         name: "Protéine en poudre - Vanille",
         price: 29.99,
         type: "powder",
-        discount: 20, // 20% discount
+        discount: 20,
         image: "images/p1.png",
         hoverImage: "images/p1h.png"
     },
     {
+        id: 2,
         name: "BCAA 200 capsules",
         price: 35.00,
         type: "capsules",
-        discount: 15, // 15% discount
+        discount: 15,
         image: "images/p2.png",
         hoverImage: "images/p2h.png"
     },
     {
+        id: 3,
         name: "Pré-entraînement - Multi fruits",
         price: 45.00,
-        discount: 0, // No discount
+        discount: 0,
         type: "pre-workout",
         image: "images/p3.png",
         hoverImage: "images/p3h.png"
     },
     {
+        id: 4,
         name: "Protein Shake Mix",
         price: 39.99,
         type: "powder",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p1.png",
         hoverImage: "images/p1h.png"
-    }
-    ,
+    },
     {
+        id: 5,
         name: "BCAA en capsules",
         price: 15.00,
         type: "capsules",
-        discount: 12, // 30% discount
+        discount: 12,
         image: "images/p4.png",
         hoverImage: "images/p4h.png"
-    }
-    ,
+    },
     {
+        id: 6,
         name: "BCAA 200 capsules",
         price: 35.00,
         type: "capsules",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p5.png",
         hoverImage: "images/p5h.png"
-    }
-    ,
+    },
     {
+        id: 7,
         name: "Protéine en poudre - Cookies et crème",
         price: 50.99,
         type: "powder",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p6.png",
         hoverImage: "images/p6h.png"
-    }
-    ,
+    },
     {
+        id: 8,
         name: "Protéine en poudre - Chocolat",
         price: 50.99,
         type: "powder",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p7.png"
-    
-    }
-    ,
+    },
     {
+        id: 9,
         name: "Protéine en poudre - Beurre de cacahouète",
         price: 50.99,
         type: "powder",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p8.png"
     },
     {
+        id: 10,
         name: "Protéine en poudre - Cappuccino",
         price: 50.99,
         type: "powder",
-        discount: 30, // 30% discount
-        image: "images/p9.png"}
-        ,{
-            name: "Pré-entraînement - Framboise",
+        discount: 30,
+        image: "images/p9.png"
+    },
+    {
+        id: 11,
+        name: "Pré-entraînement - Framboise",
         price: 23.99,
         type: "pre-workout",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p10.png",
-         hoverImage: "images/p10h.png"
-        }
-        ,{
-            name: "Pré-entraînement - Pastèque",
+        hoverImage: "images/p10h.png"
+    },
+    {
+        id: 12,
+        name: "Pré-entraînement - Pastèque",
         price: 25.99,
         type: "pre-workout",
-        discount: 30, // 30% discount
+        discount: 30,
         image: "images/p11.png"
-        }
-        ,{
-            name: "Pré-entraînement - Cerise",
+    },
+    {
+        id: 13,
+        name: "Pré-entraînement - Cerise",
         price: 44.99,
         type: "pre-workout",
-        discount: 22, // 30% discount
+        discount: 22,
         image: "images/p12.png"
-        }
-        ,{
-            name: "Pré-entraînement - Pomme verte",
+    },
+    {
+        id: 14,
+        name: "Pré-entraînement - Pomme verte",
         price: 25.99,
         type: "pre-workout",
-        discount: 34, // 30% discount
+        discount: 34,
         image: "images/p13.png"
-        }
-        ,{
-            name: "Pré-entraînement - Limonade",
+    },
+    {
+        id: 15,
+        name: "Pré-entraînement - Limonade",
         price: 23.99,
         type: "pre-workout",
-        discount: 22, // 30% discount
+        discount: 22,
         image: "images/p14.png"
-        }
-    
+    }
 ];
-
 // Filter state (set to general values to show all products initially)
 const filterState = {
     productType: 'all',  // 'all' allows all product types
@@ -392,11 +401,11 @@ function calculateDiscountedPrice(price, discount) {
     if (!discount) return price;
     return price * (1 - discount / 100);
 }
+// Modify the renderProducts function where the product cards are created
 function renderProducts(filteredProducts) {
     const productsGrid = document.querySelector('.products-grid');
     const loader = document.querySelector('.loader');
     
-    // Show loader while the products are being loaded
     loader.style.display = 'block';
     productsGrid.style.opacity = '0';
     
@@ -404,7 +413,7 @@ function renderProducts(filteredProducts) {
         productsGrid.innerHTML = '';
         
         if (filteredProducts.length === 0) {
-            productsGrid.innerHTML = ` 
+            productsGrid.innerHTML = `
                 <div class="no-products-message">
                     Aucun produit ne correspond à vos critères de recherche.
                 </div>
@@ -414,27 +423,43 @@ function renderProducts(filteredProducts) {
                 const hasDiscount = product.discount > 0;
                 const discountedPrice = calculateDiscountedPrice(product.price, product.discount);
                 
+                // Create URL-friendly product name (slug)
+                const productSlug = product.name
+                    .toLowerCase()
+                    .replace(/[éèê]/g, 'e')
+                    .replace(/[àâ]/g, 'a')
+                    .replace(/[ùû]/g, 'u')
+                    .replace(/[ôö]/g, 'o')
+                    .replace(/[îï]/g, 'i')
+                    .replace(/[^a-z0-9]/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-|-$/g, '');
+                
                 const productCard = `
                     <div class="product-card">
-                        ${hasDiscount ? `
-                            <span class="portions-badge">
-                                -${product.discount}% off
-                            </span>
-                        ` : ''}
-                        <div class="product-image">
-                            <img src="${product.image}" alt="${product.name}" data-hover="${product.hoverImage ? product.hoverImage : product.image}">
-                        </div>
-                        <div class="product-info">
-                            <h3>${product.name}</h3>
-                            <div class="price-container">
-                                ${hasDiscount ? `
-                                    <p class="original-price">${product.price.toFixed(2)} €</p>
-                                    <p class="price">${discountedPrice.toFixed(2)} €</p>
-                                ` : `
-                                    <p class="price">${product.price.toFixed(2)} €</p>
-                                `}
+                        <a href="Product.html?id=${product.id}&name=${encodeURIComponent(product.name)}&type=${encodeURIComponent(product.type)}&price=${product.price}&discount=${product.discount}&image=${encodeURIComponent(product.image)}${product.hoverImage ? '&hoverImage=' + encodeURIComponent(product.hoverImage) : ''}" 
+                           class="product-links" 
+                           style="text-decoration: none; color: inherit;">
+                            ${hasDiscount ? `
+                                <span class="portions-badge">
+                                    -${product.discount}% off
+                                </span>
+                            ` : ''}
+                            <div class="product-image">
+                                <img src="${product.image}" alt="${product.name}" data-hover="${product.hoverImage ? product.hoverImage : product.image}">
                             </div>
-                        </div>
+                            <div class="product-info">
+                                <h3>${product.name}</h3>
+                                <div class="price-container">
+                                    ${hasDiscount ? `
+                                        <p class="original-price">${product.price.toFixed(2)} €</p>
+                                        <p class="price">${discountedPrice.toFixed(2)} €</p>
+                                    ` : `
+                                        <p class="price">${product.price.toFixed(2)} €</p>
+                                    `}
+                                </div>
+                            </div>
+                        </a>
                         <div class="product-footer">
                             AJOUTER AU PANIER
                         </div>
@@ -444,15 +469,11 @@ function renderProducts(filteredProducts) {
             });
         }
         
-        // Initialize hover effects if needed
         initializeHoverEffects();
-
-        // Hide loader and show the products grid
         loader.style.display = 'none';
         productsGrid.style.opacity = '1';
-    }, 300); // Adjust the timeout as per your needs
+    }, 300);
 }
-
 // Initialize hover effects
 function initializeHoverEffects() {
     document.querySelectorAll('.product-image img').forEach(img => {

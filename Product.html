@@ -38,8 +38,14 @@
             <div class="right-section">
                 <div class="search-box">
                     <input type="text" class="search-input" placeholder="Recherche...">
-                    <span class="search-icon">🔍</span>
+                    <span class="search-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px" class="icon-svg">
+                            <path
+                                d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z" />
+                        </svg>
+                    </span>
                 </div>
+
                 
                 <div class="login-cart">
                     <span>Connexion</span>
@@ -75,7 +81,7 @@
         <div class="nav-left">
             <a href="/">Accueil</a>
             <span>/</span>
-            <span>Pack BCAA en capsules</span>
+            <span class="nav-lfet-title">Pack BCAA en capsules</span>
         </div>
         <div class="nav-controls">
             <a href="#" class="nav-button prev">← Précédent</a>
@@ -219,6 +225,8 @@
       
     </footer>
     <script>
+
+
         const mobileMenuButton = document.querySelector('.mobile-menu-button');
         const navMenu = document.querySelector('.nav-menu');
         const overlay = document.querySelector('.overlay');
@@ -232,114 +240,342 @@
             navMenu.classList.remove('active');
             overlay.classList.remove('active');
         });
-        document.addEventListener('DOMContentLoaded', () => {
-    const quantityControls = document.querySelectorAll('.quantity-controls');
 
+
+        document.addEventListener('DOMContentLoaded', () => {
+    // Quantity Controls
+    const quantityControls = document.querySelectorAll('.quantity-controls');
     quantityControls.forEach(control => {
         const input = control.querySelector('input[type="number"]');
         const minusButton = control.querySelector('.quantity-btn.minus');
         const plusButton = control.querySelector('.quantity-btn.plus');
 
-        // Handle minus button click
-        minusButton.addEventListener('click', () => {
-            const currentValue = parseInt(input.value, 10);
+        const updateInputValue = (delta) => {
+            const currentValue = parseInt(input.value, 10) || 0;
             const minValue = parseInt(input.min, 10) || 1;
-            if (currentValue > minValue) {
-                input.value = currentValue - 1;
-            }
-        });
+            const newValue = Math.max(minValue, currentValue + delta);
+            input.value = newValue;
+        };
 
-        // Handle plus button click
-        plusButton.addEventListener('click', () => {
-            const currentValue = parseInt(input.value, 10);
-            input.value = currentValue + 1;
-        });
+        if (minusButton) {
+            minusButton.addEventListener('click', () => updateInputValue(-1));
+        }
 
-        // Prevent invalid input in the number field
+        if (plusButton) {
+            plusButton.addEventListener('click', () => updateInputValue(1));
+        }
+
         input.addEventListener('input', () => {
-            const value = parseInt(input.value, 10);
             const minValue = parseInt(input.min, 10) || 1;
-            if (isNaN(value) || value < minValue) {
-                input.value = minValue;
-            }
+            input.value = Math.max(minValue, parseInt(input.value, 10) || minValue);
         });
     });
-});
 
-        document.querySelectorAll('.details-section h3').forEach(header => {
-    header.addEventListener('click', () => {
-        const section = header.parentElement;
+    // Expandable Details Sections
+    const detailSections = document.querySelectorAll('.details-section');
+    detailSections.forEach(section => {
+        const header = section.querySelector('h3');
         const content = section.querySelector('.details-content');
-        const isActive = section.classList.contains('active');
 
-        // Close all sections
-        document.querySelectorAll('.details-section').forEach(s => {
-            if (s !== section) {
-                s.classList.remove('active');
-                s.querySelector('.details-content').style.maxHeight = null; // Reset max-height
-            }
-        });
+        if (header && content) {
+            header.setAttribute('role', 'button');
+            header.setAttribute('aria-expanded', 'false');
+            content.setAttribute('aria-hidden', 'true');
 
-        // Toggle clicked section
-        if (!isActive) {
-            section.classList.add('active');
-            content.style.maxHeight = content.scrollHeight + 'px'; // Expand to fit content
-        } else {
-            section.classList.remove('active');
-            content.style.maxHeight = null; // Collapse
+            header.addEventListener('click', () => {
+                const isActive = section.classList.toggle('active');
+                header.setAttribute('aria-expanded', isActive);
+                content.setAttribute('aria-hidden', !isActive);
+                content.style.maxHeight = isActive ? `${content.scrollHeight}px` : null;
+            });
         }
     });
-});
 
-// Open the first section by default
-const firstSection = document.querySelector('.details-section');
-if (firstSection) {
-    firstSection.classList.add('active');
-    const firstContent = firstSection.querySelector('.details-content');
-    if (firstContent) {
-        firstContent.style.maxHeight = firstContent.scrollHeight + 'px'; // Expand the first section
+    // Default open the first details section
+    const firstSection = detailSections[0];
+    if (firstSection) {
+        const firstContent = firstSection.querySelector('.details-content');
+        firstSection.classList.add('active');
+        if (firstContent) {
+            firstContent.style.maxHeight = `${firstContent.scrollHeight}px`;
+            firstContent.setAttribute('aria-hidden', 'false');
+        }
     }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
+    // Product Gallery
     const mainImage = document.querySelector('.main-image .main-img');
     const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
     const prevButton = document.querySelector('.gallery-nav.prev');
     const nextButton = document.querySelector('.gallery-nav.next');
     let currentIndex = 0;
 
-    // Function to update the main image and active thumbnail
-    function updateMainImage(index) {
+    const updateMainImage = (index) => {
         const activeThumbnail = document.querySelector('.thumbnail-gallery img.active');
         if (activeThumbnail) activeThumbnail.classList.remove('active');
 
+        if (thumbnails[index]) {
+            thumbnails[index].classList.add('active');
+            mainImage.src = thumbnails[index].src;
+            mainImage.alt = thumbnails[index].alt;
+            currentIndex = index;
+        }
+    };
+
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', () => updateMainImage(index));
+    });
+
+    if (prevButton && nextButton) {
+        prevButton.addEventListener('click', () => {
+            updateMainImage((currentIndex - 1 + thumbnails.length) % thumbnails.length);
+        });
+
+        nextButton.addEventListener('click', () => {
+            updateMainImage((currentIndex + 1) % thumbnails.length);
+        });
+    }
+
+    updateMainImage(0); // Initialize gallery
+
+    // URL Parameter Handling for Product Details
+    const urlParams = new URLSearchParams(window.location.search);
+    const productData = {
+        name: decodeURIComponent(urlParams.get('name') || ''),
+        type: decodeURIComponent(urlParams.get('type') || ''),
+        price: parseFloat(urlParams.get('price')) || 0,
+        discount: parseFloat(urlParams.get('discount')) || 0,
+        image: decodeURIComponent(urlParams.get('image') || ''),
+        hoverImage: decodeURIComponent(urlParams.get('hoverImage') || '')
+    };
+
+    if (productData.name) {
+        document.title = `${productData.name} - CapacityX`;
+        document.querySelector('.product-title').textContent = productData.name;
+
+        if (productData.discount > 0) {
+            const discountedPrice = productData.price * (1 - productData.discount / 100);
+            document.querySelector('.product-price').innerHTML = `
+                <span class="original-price">${productData.price.toFixed(2)} €</span>
+                <span class="discounted-price">${discountedPrice.toFixed(2)} €</span>
+            `;
+        } else {
+            document.querySelector('.product-price').textContent = `${productData.price.toFixed(2)} €`;
+        }
+
+        const mainImg = document.querySelector('.main-img');
+        mainImg.src = productData.image;
+        mainImg.alt = productData.name;
+
+        const thumbnailGallery = document.querySelector('.thumbnail-gallery');
+        thumbnailGallery.innerHTML = `
+            <img src="${productData.image}" alt="${productData.name}" class="active" data-index="0">
+            ${productData.hoverImage ? `<img src="${productData.hoverImage}" alt="${productData.name} - Alt" data-index="1">` : ''}
+        `;
+  // Update breadcrumb navigation
+  const navLeftTitle = document.querySelector('.nav-left .nav-lfet-title');
+    if (navLeftTitle) {
+        navLeftTitle.textContent = productData.name;
+    }
+        initializeGallery();
+    } else {
+        window.location.href = 'Boutique.html';
+    }
+
+function initializeGallery() {
+    // Your existing gallery initialization code
+    const mainImage = document.querySelector('.main-image .main-img');
+    const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
+    const prevButton = document.querySelector('.gallery-nav.prev');
+    const nextButton = document.querySelector('.gallery-nav.next');
+    let currentIndex = 0;
+
+    // Update main image function
+    function updateMainImage(index) {
+        const activeThumbnail = document.querySelector('.thumbnail-gallery img.active');
+        if (activeThumbnail) activeThumbnail.classList.remove('active');
+        
         thumbnails[index].classList.add('active');
         mainImage.src = thumbnails[index].src;
         currentIndex = index;
     }
 
-    // Thumbnail click event
+    // Add click events to thumbnails
     thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', () => {
             updateMainImage(index);
         });
     });
 
-    // Navigation buttons
-    prevButton.addEventListener('click', () => {
-        const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
-        updateMainImage(newIndex);
+    // Add click events to navigation buttons
+    if (prevButton && nextButton) {
+        prevButton.addEventListener('click', () => {
+            const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+            updateMainImage(newIndex);
+        });
+
+        nextButton.addEventListener('click', () => {
+            const newIndex = (currentIndex + 1) % thumbnails.length;
+            updateMainImage(newIndex);
+        });
+    }
+}
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentProductId = parseInt(urlParams.get('id'), 10);
+
+    // Product data structure
+    const products = [
+        { id: 1, name: "Protéine en poudre - Vanille", price: 29.99, type: "powder", discount: 20, image: "images/p1.png", hoverImage: "images/p1h.png" },
+        { id: 2, name: "BCAA 200 capsules", price: 35.00, type: "capsules", discount: 15, image: "images/p2.png", hoverImage: "images/p2h.png" },
+        { id: 3, name: "Pré-entraînement - Multi fruits", price: 45.00, discount: 0, type: "pre-workout", image: "images/p3.png", hoverImage: "images/p3h.png" },
+        { id: 4, name: "Protein Shake Mix", price: 39.99, type: "powder", discount: 30, image: "images/p1.png", hoverImage: "images/p1h.png" },
+        { id: 5, name: "BCAA en capsules", price: 15.00, type: "capsules", discount: 12, image: "images/p4.png", hoverImage: "images/p4h.png" },
+        { id: 6, name: "BCAA 200 capsules", price: 35.00, type: "capsules", discount: 30, image: "images/p5.png", hoverImage: "images/p5h.png" },
+        { id: 7, name: "Protéine en poudre - Cookies et crème", price: 50.99, type: "powder", discount: 30, image: "images/p6.png", hoverImage: "images/p6h.png" },
+        { id: 8, name: "Protéine en poudre - Chocolat", price: 50.99, type: "powder", discount: 30, image: "images/p7.png" },
+        { id: 9, name: "Protéine en poudre - Beurre de cacahouète", price: 50.99, type: "powder", discount: 30, image: "images/p8.png" },
+        { id: 10, name: "Protéine en poudre - Cappuccino", price: 50.99, type: "powder", discount: 30, image: "images/p9.png" },
+        { id: 11, name: "Pré-entraînement - Framboise", price: 23.99, type: "pre-workout", discount: 30, image: "images/p10.png", hoverImage: "images/p10h.png" },
+        { id: 12, name: "Pré-entraînement - Pastèque", price: 25.99, type: "pre-workout", discount: 30, image: "images/p11.png" },
+        { id: 13, name: "Pré-entraînement - Cerise", price: 44.99, type: "pre-workout", discount: 22, image: "images/p12.png" },
+        { id: 14, name: "Pré-entraînement - Pomme verte", price: 25.99, type: "pre-workout", discount: 34, image: "images/p13.png" },
+        { id: 15, name: "Pré-entraînement - Limonade", price: 23.99, type: "pre-workout", discount: 22, image: "images/p14.png" }
+    ];
+
+    let currentProductIndex = products.findIndex(p => p.id === currentProductId);
+
+    if (currentProductIndex !== -1) {
+        // Initial display of product
+        updateProductDisplay(products[currentProductIndex]);
+
+        // Navigation buttons
+        const prevButton = document.querySelector('.nav-button.prev');
+        const nextButton = document.querySelector('.nav-button.next');
+
+        // Update navigation state
+        const updateNavButtons = () => {
+            prevButton.disabled = currentProductIndex <= 0;
+            nextButton.disabled = currentProductIndex >= products.length - 1;
+        };
+
+        nextButton.addEventListener('click', () => {
+            if (currentProductIndex < products.length - 1) {
+                currentProductIndex++;
+                const product = products[currentProductIndex];
+                updateProductDisplay(product);
+                updateURL(product.id); // Update the URL
+                updateNavButtons();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentProductIndex > 0) {
+                currentProductIndex--;
+                const product = products[currentProductIndex];
+                updateProductDisplay(product);
+                updateURL(product.id); // Update the URL
+                updateNavButtons();
+            }
+        });
+
+        updateNavButtons(); // Initialize button states
+    } else {
+        // Redirect if product not found
+        window.location.href = 'Boutique.html';
+    }
+
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.productId) {
+            const product = products.find(p => p.id === event.state.productId);
+            if (product) {
+                currentProductIndex = products.findIndex(p => p.id === product.id);
+                updateProductDisplay(product);
+                updateNavButtons();
+            }
+        }
     });
 
-    nextButton.addEventListener('click', () => {
-        const newIndex = (currentIndex + 1) % thumbnails.length;
-        updateMainImage(newIndex);
-    });
+    function updateURL(productId) {
+        const newUrl = `${window.location.pathname}?id=${productId}`;
+        history.pushState({ productId }, "", newUrl);
+    }
 
-    // Initialize with the first image
-    updateMainImage(currentIndex);
+    function updateProductDisplay(productData) {
+        // Update the page title and product name
+        document.title = `${productData.name} - CapacityX`;
+        document.querySelector('.product-title').textContent = productData.name;
+
+        // Update the price display with discounts
+        const productPriceElement = document.querySelector('.product-price');
+        if (productData.discount > 0) {
+            const discountedPrice = productData.price * (1 - productData.discount / 100);
+            productPriceElement.innerHTML = `
+                <span class="original-price">${productData.price.toFixed(2)} €</span>
+                <span class="discounted-price">${discountedPrice.toFixed(2)} €</span>
+            `;
+        } else {
+            productPriceElement.textContent = `${productData.price.toFixed(2)} €`;
+        }
+
+        // Update the main product image
+        const mainImg = document.querySelector('.main-img');
+        mainImg.src = productData.image;
+        mainImg.alt = productData.name;
+
+        // Update the thumbnail gallery
+        const thumbnailGallery = document.querySelector('.thumbnail-gallery');
+        thumbnailGallery.innerHTML = `
+            <img src="${productData.image}" alt="${productData.name}" class="active" data-index="0">
+            ${productData.hoverImage ? `<img src="${productData.hoverImage}" alt="${productData.name} - Alt" data-index="1">` : ''}
+        `;
+  // Update breadcrumb navigation
+  const navLeftTitle = document.querySelector('.nav-left .nav-lfet-title');
+    if (navLeftTitle) {
+        navLeftTitle.textContent = productData.name;
+    }
+        // Reinitialize gallery logic for the new thumbnails
+        initializeGallery();
+    }
+
+    function initializeGallery() {
+        const mainImage = document.querySelector('.main-image .main-img');
+        const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
+        const prevButton = document.querySelector('.gallery-nav.prev');
+        const nextButton = document.querySelector('.gallery-nav.next');
+        let currentIndex = 0;
+
+        // Update main image function
+        function updateMainImage(index) {
+            const activeThumbnail = document.querySelector('.thumbnail-gallery img.active');
+            if (activeThumbnail) activeThumbnail.classList.remove('active');
+
+            thumbnails[index].classList.add('active');
+            mainImage.src = thumbnails[index].src;
+            currentIndex = index;
+        }
+
+        // Add click events to thumbnails
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', () => {
+                updateMainImage(index);
+            });
+        });
+
+        // Add click events to navigation buttons
+        if (prevButton && nextButton) {
+            prevButton.addEventListener('click', () => {
+                const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+                updateMainImage(newIndex);
+            });
+
+            nextButton.addEventListener('click', () => {
+                const newIndex = (currentIndex + 1) % thumbnails.length;
+                updateMainImage(newIndex);
+            });
+        }
+    }
 });
-
 
     </script>
 </body>

@@ -344,7 +344,13 @@ input[type="number"]::-moz-inner-spin-button,
 input[type="number"]::-moz-outer-spin-button {
     display: none; /* Hide spinner for Firefox */
 }
-
+.original-price {
+    color:grey;
+   
+    text-decoration: line-through; /* Strikethrough text */
+padding:5px;
+    padding-bottom: 2px;  /* Optional: Adjust padding if needed */
+}
 
 @media (max-width: 768px) {
     .product-container {
@@ -353,10 +359,11 @@ input[type="number"]::-moz-outer-spin-button {
     .social-sidebar {
         display: none;
     }
-    .nav-controls {
-        display: none;
+  
+    .navigation {
+        display: block;
+        padding: 10px;
     }
-
     .gallery-nav {
         padding: 10px;
     }
