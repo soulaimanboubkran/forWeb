@@ -49,7 +49,7 @@
                 
                 <div class="login-cart">
                     <span>Connexion</span>
-                    <div class="cart-icon">
+                    <div class="cart-icon" id="cartButton">
                         🛒
                         <span class="cart-count">0</span>
                     </div>
@@ -59,6 +59,28 @@
 
         <div class="overlay"></div>
     </header>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="product-details">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=500&auto=format&fit=crop" 
+                         alt="Protein Powder"
+                         class="main-image">
+                </div>
+                <div class="product-info">
+                    <h2>Protéine en poudre - Vanille</h2>
+                    <div class="price-container">
+                        <span class="price">$29.99</span>
+                        <span class="discount">-20%</span>
+                    </div>
+                    <p class="type">Type: powder</p>
+                    <button class="add-to-cart">AJOUTER AU PANIER</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Add this after the header -->
     <div class="social-sidebar">
         <a href="#" class="social-link facebook"><img src="icons8-facebook.svg" alt="Facebook Icon"></a>
@@ -125,7 +147,7 @@
                 </div>
 
                 <div class="product-actions">
-                    <button class="btn-add-cart">Ajouter au panier</button>
+                    <button class="btn-add-cart" >Ajouter au panier</button>
                     <button class="btn-buy-now">Commander et payer</button>
                 </div>
 
@@ -420,7 +442,9 @@ function initializeGallery() {
     }
 }
         });
-        document.addEventListener('DOMContentLoaded', () => {
+   
+
+    document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const currentProductId = parseInt(urlParams.get('id'), 10);
 
@@ -442,12 +466,19 @@ function initializeGallery() {
         { id: 14, name: "Pré-entraînement - Pomme verte", price: 25.99, type: "pre-workout", discount: 34, image: "images/p13.png" },
         { id: 15, name: "Pré-entraînement - Limonade", price: 23.99, type: "pre-workout", discount: 22, image: "images/p14.png" }
     ];
-
     let currentProductIndex = products.findIndex(p => p.id === currentProductId);
 
     if (currentProductIndex !== -1) {
         // Initial display of product
         updateProductDisplay(products[currentProductIndex]);
+
+        // Add to Cart Button
+        const addToCartButton = document.querySelector('.btn-add-cart');
+        addToCartButton.addEventListener('click', () => {
+            const product = products[currentProductIndex];
+            cartManager.addToCart(product); // Directly pass the product object
+            displayAddToCartMessage(); // Show success message after adding to cart
+        });
 
         // Navigation buttons
         const prevButton = document.querySelector('.nav-button.prev');
@@ -502,81 +533,197 @@ function initializeGallery() {
     }
 
     function updateProductDisplay(productData) {
-        // Update the page title and product name
-        document.title = `${productData.name} - CapacityX`;
-        document.querySelector('.product-title').textContent = productData.name;
+        // (Your existing update product display code here)
+    }
 
-        // Update the price display with discounts
-        const productPriceElement = document.querySelector('.product-price');
-        if (productData.discount > 0) {
-            const discountedPrice = productData.price * (1 - productData.discount / 100);
-            productPriceElement.innerHTML = `
-                <span class="original-price">${productData.price.toFixed(2)} €</span>
-                <span class="discounted-price">${discountedPrice.toFixed(2)} €</span>
+    // CartManager object
+    const cartManager = {
+        getCartItems() {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        },
+
+        saveCartItems(items) {
+            localStorage.setItem('cart', JSON.stringify(items));
+        },
+
+        addToCart(product) {
+            const cartItems = this.getCartItems();
+            const existingItem = cartItems.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cartItems.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    discount: product.discount,
+                    type: product.type,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            this.saveCartItems(cartItems);
+            this.updateCartCount();
+            this.updateModal();
+        },
+
+        updateCartCount() {
+            const cartItems = this.getCartItems();
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = cartItems.reduce((total, item) => total + item.quantity, 0); // Sum all item quantities in the cart
+            }
+        },
+
+        calculateFinalPrice(price, discount) {
+            return discount ? price * (1 - discount / 100) : price;
+        },
+
+        updateModal() {
+            const cartItems = this.getCartItems();
+            const productDetails = document.querySelector('.modal .product-details');
+            
+            if (cartItems.length === 0) {
+                productDetails.innerHTML = `
+                    <div class="empty-cart">
+                        <h2>Votre panier est vide</h2>
+                    </div>
+                `;
+                return;
+            }
+
+            let cartHtml = '';
+            let totalPrice = 0;
+
+            cartItems.forEach((item, index) => {
+                const finalPrice = this.calculateFinalPrice(item.price, item.discount);
+                totalPrice += finalPrice * item.quantity;
+
+                cartHtml += `
+                    <div class="product-details" ${index > 0 ? 'style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;"' : ''}>
+                        <div class="product-image">
+                            <img src="${item.image}" alt="${item.name}" class="main-image">
+                        </div>
+                        <div class="product-info">
+                            <h2>${item.name}</h2>
+                            <div class="price-container">
+                                <span class="price">${finalPrice.toFixed(2)}€</span>
+                                ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ''}
+                            </div>
+                            <p class="type">Type: ${item.type}</p>
+                            <div class="quantity-controls">
+                                <button onclick="cartManager.updateQuantity(${item.id}, -1)" class="quantity-btn minus">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button onclick="cartManager.updateQuantity(${item.id}, 1)" class="quantity-btn plus">+</button>
+                                <button onclick="cartManager.removeItem(${item.id})" class="remove-btn">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Add total section
+            cartHtml += `
+                <div class="cart-total">
+                    <h3>Total: ${totalPrice.toFixed(2)}€</h3>
+                    <button class="checkout-btn">Procéder au paiement</button>
+                </div>
             `;
-        } else {
-            productPriceElement.textContent = `${productData.price.toFixed(2)} €`;
+
+            productDetails.innerHTML = cartHtml;
+        },
+
+        updateQuantity(itemId, change) {
+            const cartItems = this.getCartItems();
+            const item = cartItems.find(item => item.id === itemId);
+            
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    this.removeItem(itemId);
+                    return;
+                }
+            }
+
+            this.saveCartItems(cartItems);
+            this.updateCartCount();
+            this.updateModal();
+        },
+
+        removeItem(itemId) {
+            const cartItems = this.getCartItems();
+            const updatedItems = cartItems.filter(item => item.id !== itemId);
+            this.saveCartItems(updatedItems);
+            this.updateCartCount();
+            this.updateModal();
         }
+    };
 
-        // Update the main product image
-        const mainImg = document.querySelector('.main-img');
-        mainImg.src = productData.image;
-        mainImg.alt = productData.name;
+    // Modal logic for opening/closing
+    const modal = document.getElementById('modal');
+    const cartButton = document.getElementById('cartButton');
+    const closeButton = document.querySelector('.close');
 
-        // Update the thumbnail gallery
-        const thumbnailGallery = document.querySelector('.thumbnail-gallery');
-        thumbnailGallery.innerHTML = `
-            <img src="${productData.image}" alt="${productData.name}" class="active" data-index="0">
-            ${productData.hoverImage ? `<img src="${productData.hoverImage}" alt="${productData.name} - Alt" data-index="1">` : ''}
-        `;
-  // Update breadcrumb navigation
-  const navLeftTitle = document.querySelector('.nav-left .nav-lfet-title');
-    if (navLeftTitle) {
-        navLeftTitle.textContent = productData.name;
-    }
-        // Reinitialize gallery logic for the new thumbnails
-        initializeGallery();
-    }
+    cartButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
 
-    function initializeGallery() {
-        const mainImage = document.querySelector('.main-image .main-img');
-        const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
-        const prevButton = document.querySelector('.gallery-nav.prev');
-        const nextButton = document.querySelector('.gallery-nav.next');
-        let currentIndex = 0;
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'unset';
+    });
 
-        // Update main image function
-        function updateMainImage(index) {
-            const activeThumbnail = document.querySelector('.thumbnail-gallery img.active');
-            if (activeThumbnail) activeThumbnail.classList.remove('active');
-
-            thumbnails[index].classList.add('active');
-            mainImage.src = thumbnails[index].src;
-            currentIndex = index;
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'unset';
         }
+    });
 
-        // Add click events to thumbnails
-        thumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', () => {
-                updateMainImage(index);
-            });
-        });
+    // Display the success message after adding to cart
+    function displayAddToCartMessage() {
+        const message = document.createElement('div');
+        message.classList.add('add-to-cart-message');
+        message.textContent = 'Produit ajouté au panier';
+        document.body.appendChild(message);
 
-        // Add click events to navigation buttons
-        if (prevButton && nextButton) {
-            prevButton.addEventListener('click', () => {
-                const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
-                updateMainImage(newIndex);
-            });
-
-            nextButton.addEventListener('click', () => {
-                const newIndex = (currentIndex + 1) % thumbnails.length;
-                updateMainImage(newIndex);
-            });
-        }
+        setTimeout(() => {
+            message.remove();
+        }, 2000);
     }
 });
 
+
+// Add this CSS for the success message
+const style = document.createElement('style');
+style.textContent = `
+    .add-to-cart-message {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 4px;
+        animation: slideIn 0.3s ease-out;
+        z-index: 1000;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
     </script>
 </body>
 </html>
