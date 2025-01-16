@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="apropos_styles.css">
 </head>
 <style>
     .main-content {
@@ -103,12 +103,67 @@
       dima l code dial page li khdamin fiha ikon f wst had div 
        ............ -->
 
+<!-- Place this code inside the main-content div -->
+    <!-- Updated About section -->
+<div class="about-container">
+    <div class="about-section">
+        <div class="about-image">
+            <img src="https://static.wixstatic.com/media/913019_f8e2a6bdef004a8e9818e851842b73fb~mv2.jpg/v1/fill/w_451,h_451,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/913019_f8e2a6bdef004a8e9818e851842b73fb~mv2.jpg" alt="Supplements">
+        </div>
+        <div class="about-content">
+            <h1>À<br>PROPOS</h1>
+            <p>CapacityX est né d'une vision simple : révolutionner le marché des suppléments sportifs au Maroc. Notre mission est de fournir des produits de haute qualité à des prix accessibles, tout en offrant un service client exceptionnel. Nous croyons que chaque athlète, qu'il soit débutant ou confirmé, mérite d'avoir accès aux meilleurs suppléments pour optimiser ses performances.</p>
+        </div>
+    </div>
 
+    <div class="creator-section">
+        <div class="creator-content">
+            <h2>LES<br>CRÉATEURS</h2>
+            <p>Nous sommes quatre passionnés de fitness qui partageons la même vision du sport et de la nutrition. Notre expérience personnelle dans le monde de la musculation nous a permis de comprendre les besoins réels des athlètes. Ensemble, nous avons décidé de créer CapacityX pour offrir ce qui manquait sur le marché : des suppléments de qualité à prix raisonnable, sélectionnés par des sportifs, pour des sportifs.</p>
+        </div>
+        <div class="creator-image">
+            <img src="https://www.eoforless.com/wp-content/uploads/2021/06/fitness-instructor-student-sm.jpg" alt="Les Créateurs">
+        </div>
+    </div>
 
+    <div class="testimonials-section">
+        <h2>LES AVIS DES CLIENTS</h2>
+        <div class="testimonials-slider">
+            <div class="testimonials-container">
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">« La créatine de CapacityX a vraiment fait une différence dans mes entraînements. Je vois une nette amélioration de ma force et de ma récupération. Le rapport qualité-prix est imbattable ! »</p>
+                    <p class="testimonial-author">- Youssef B.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">« Service client exceptionnel et livraison rapide. Les produits sont de très haute qualité et les résultats sont au rendez-vous. Je recommande vivement ! »</p>
+                    <p class="testimonial-author">- Amine M.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">« Enfin des suppléments de qualité à des prix abordables au Maroc. La whey protein est excellente et se mélange parfaitement. Client fidèle depuis 6 mois ! »</p>
+                    <p class="testimonial-author">- Karim R.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">« Je suis très satisfaite de la qualité des produits. Les BCAA sont parfaits pour ma récupération après mes séances de CrossFit. Merci CapacityX ! »</p>
+                    <p class="testimonial-author">- Fatima Z.</p>
+                </div>
+                <div class="testimonial-slide">
+                    <p class="testimonial-text">« L'équipe est très professionnelle et donne d'excellents conseils. Les produits sont authentiques et les résultats sont là. Je ne change plus de fournisseur ! »</p>
+                    <p class="testimonial-author">- Hassan L.</p>
+                </div>
+            </div>
+            <div class="testimonial-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </div>
-
 <!--  
     dima l code dial page li khdamin fiha ikon f wst had div 
 -->
@@ -127,12 +182,12 @@
             <div class="footer-section">
                 <h3>Menu</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">À propos</a></li>
-                    <li><a href="#">Boutique</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Demander à l'expert</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="Home.html">Accueil</a></li>
+                    <li><a href="Apropos.html">À propos</a></li>
+                    <li><a href="Boutique.html">Boutique</a></li>
+                    <li><a href="Blog.html">Blog</a></li>
+                  
+                    <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </div>
 
@@ -166,6 +221,116 @@
       
     </footer>
     <script>
+         // Add this script at the end of your body tag
+        // Add this script at the end of your body tag
+// Enhanced testimonials slider functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
+    let slideInterval;
+    let isHovered = false;
+
+    // Initialize the first slide
+    function initSlides() {
+        slides.forEach((slide, index) => {
+            if (index === 0) {
+                slide.classList.add('active');
+                dots[0].classList.add('active');
+            } else {
+                slide.classList.remove('active');
+                dots[index].classList.remove('active');
+            }
+        });
+    }
+
+    // Function to show a specific slide
+    function showSlide(index) {
+        // Fade out current slide
+        slides[currentSlide].style.opacity = '0';
+        dots[currentSlide].classList.remove('active');
+        
+        setTimeout(() => {
+            slides[currentSlide].classList.remove('active');
+            
+            // Update current slide index
+            currentSlide = index;
+            
+            // Fade in new slide
+            slides[currentSlide].classList.add('active');
+            slides[currentSlide].style.opacity = '1';
+            dots[currentSlide].classList.add('active');
+        }, 500);
+    }
+
+    // Function to advance to next slide
+    function nextSlide() {
+        if (!isHovered) {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+    }
+
+    // Add click events to dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            if (index !== currentSlide) {
+                showSlide(index);
+                resetInterval();
+            }
+        });
+
+        // Add hover effects
+        dot.addEventListener('mouseenter', () => {
+            dot.style.transform = 'scale(1.2)';
+        });
+
+        dot.addEventListener('mouseleave', () => {
+            if (!dot.classList.contains('active')) {
+                dot.style.transform = 'scale(1)';
+            }
+        });
+    });
+
+    // Reset interval function
+    function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+    }
+
+    // Pause slideshow when user hovers over testimonials
+    const testimonialContainer = document.querySelector('.testimonials-slider');
+    testimonialContainer.addEventListener('mouseenter', () => {
+        isHovered = true;
+    });
+
+    testimonialContainer.addEventListener('mouseleave', () => {
+        isHovered = false;
+    });
+
+    // Initialize slider
+    initSlides();
+    
+    // Start automatic slideshow
+    slideInterval = setInterval(nextSlide, 5000);
+
+    // Add intersection observer for animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // Observe sections
+    document.querySelectorAll('.about-section, .creator-section, .testimonials-section').forEach(section => {
+        observer.observe(section);
+    });
+});
         const mobileMenuButton = document.querySelector('.mobile-menu-button');
         const navMenu = document.querySelector('.nav-menu');
         const overlay = document.querySelector('.overlay');
