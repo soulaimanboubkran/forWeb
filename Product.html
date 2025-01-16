@@ -62,6 +62,10 @@
     
     <div id="modal" class="modal">
         <div class="modal-content">
+            <div class="panier-header">
+                <h2>Panier</h2>
+              
+            </div>
             <span class="close">&times;</span>
             <div class="product-details">
                 <div class="product-image">
@@ -148,7 +152,7 @@
 
                 <div class="product-actions">
                     <button class="btn-add-cart" >Ajouter au panier</button>
-                    <button class="btn-buy-now">Commander et payer</button>
+                   
                 </div>
 
                 <div class="product-details">
@@ -491,6 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         nextButton.addEventListener('click', () => {
+       
             if (currentProductIndex < products.length - 1) {
                 currentProductIndex++;
                 const product = products[currentProductIndex];
@@ -531,10 +536,81 @@ document.addEventListener('DOMContentLoaded', () => {
         const newUrl = `${window.location.pathname}?id=${productId}`;
         history.pushState({ productId }, "", newUrl);
     }
-
     function updateProductDisplay(productData) {
-        // (Your existing update product display code here)
+        // Update the page title and product name
+        document.title = `${productData.name} - CapacityX`;
+        document.querySelector('.product-title').textContent = productData.name;
+
+        // Update the price display with discounts
+        const productPriceElement = document.querySelector('.product-price');
+        if (productData.discount > 0) {
+            const discountedPrice = productData.price * (1 - productData.discount / 100);
+            productPriceElement.innerHTML = `
+                <span class="original-price">${productData.price.toFixed(2)} €</span>
+                <span class="discounted-price">${discountedPrice.toFixed(2)} €</span>
+            `;
+        } else {
+            productPriceElement.textContent = `${productData.price.toFixed(2)} €`;
+        }
+
+        // Update the main product image
+        const mainImg = document.querySelector('.main-img');
+        mainImg.src = productData.image;
+        mainImg.alt = productData.name;
+
+        // Update the thumbnail gallery
+        const thumbnailGallery = document.querySelector('.thumbnail-gallery');
+        thumbnailGallery.innerHTML = `
+            <img src="${productData.image}" alt="${productData.name}" class="active" data-index="0">
+            ${productData.hoverImage ? `<img src="${productData.hoverImage}" alt="${productData.name} - Alt" data-index="1">` : ''}
+        `;
+  // Update breadcrumb navigation
+  const navLeftTitle = document.querySelector('.nav-left .nav-lfet-title');
+    if (navLeftTitle) {
+        navLeftTitle.textContent = productData.name;
     }
+        // Reinitialize gallery logic for the new thumbnails
+        initializeGallery();
+    }
+
+    function initializeGallery() {
+        const mainImage = document.querySelector('.main-image .main-img');
+        const thumbnails = document.querySelectorAll('.thumbnail-gallery img');
+        const prevButton = document.querySelector('.gallery-nav.prev');
+        const nextButton = document.querySelector('.gallery-nav.next');
+        let currentIndex = 0;
+
+        // Update main image function
+        function updateMainImage(index) {
+            const activeThumbnail = document.querySelector('.thumbnail-gallery img.active');
+            if (activeThumbnail) activeThumbnail.classList.remove('active');
+
+            thumbnails[index].classList.add('active');
+            mainImage.src = thumbnails[index].src;
+            currentIndex = index;
+        }
+
+        // Add click events to thumbnails
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', () => {
+                updateMainImage(index);
+            });
+        });
+
+        // Add click events to navigation buttons
+        if (prevButton && nextButton) {
+            prevButton.addEventListener('click', () => {
+                const newIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+                updateMainImage(newIndex);
+            });
+
+            nextButton.addEventListener('click', () => {
+                const newIndex = (currentIndex + 1) % thumbnails.length;
+                updateMainImage(newIndex);
+            });
+        }
+    }
+
 
   // CartManager object
   const cartManager = {
@@ -767,6 +843,7 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
     </script>
 </body>
 </html>
