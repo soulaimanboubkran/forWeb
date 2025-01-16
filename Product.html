@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="Product.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <style>
     .main-content {
@@ -105,7 +107,7 @@
        ............ -->
        <nav class="navigation">
         <div class="nav-left">
-            <a href="/">Accueil</a>
+            <a href="Home.html">Accueil</a>
             <span>/</span>
             <span class="nav-lfet-title">Pack BCAA en capsules</span>
         </div>
@@ -844,6 +846,16 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.querySelector('.logo');
+    
+    if (logo) {
+    logo.addEventListener('click', () => {
+        window.location.href = 'home.html'; // Navigate to home.html
+    });
+}
+
+});
     </script>
 </body>
 </html>

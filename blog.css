@@ -9,7 +9,7 @@
 }
 
 .container img {
-    width: 400px; /* Fixed width for all images */
+    width: 500px; /* Fixed width for all images */
     height: 300px; /* Same height as container */
     object-fit: cover;
     margin: 0;
@@ -22,7 +22,7 @@
     padding: 20px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+   
 }
 
 .para {
@@ -30,10 +30,13 @@
 }
 
 .para p {
-    color: aliceblue;
+    color: grey;
+  display: block;
     font-family: Arial, sans-serif;
     font-size: 14px;
     margin: 0;
+    line-height: 1.5;
+    gap: 5px; /* Space between cards */
 }
 
 .para h1 {
@@ -45,10 +48,10 @@
 }
 
 .para a {
-    color: aliceblue;
+    color: white;
     text-decoration: none;
     font-family: Arial, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 @media screen and (max-width: 768px) {

@@ -5,9 +5,10 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-
-
+    margin: 0;
+    min-height: 100vh;
+    padding-top: 130px; /* Adjust this value to match the header's height */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: #0B1423;
 }
 
@@ -69,26 +70,37 @@ body {
     background: transparent;
     padding: 15px 40px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
+    position: fixed; /* Makes the header fixed */
+    top: 0; /* Positions it at the top of the viewport */
+    left: 0; /* Ensures alignment with the viewport's left edge */
+    width: 100%; /* Stretches the header across the full width */
+    z-index: 1000; /* Places the header above other elements */
 }
+
 
 .logo {
     display: flex;
     align-items: baseline;
     flex-grow: 1;
+    flex-direction: column
+  
 }
-
 .logo-main {
-    color: #7CFF6B;
-    font-size: 24px;
-    font-weight: bold;
-    margin-right: 5px;
+    display: flex;
+    cursor: pointer;
+    transform: scaleY(1.4);
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #8CDA3FB3;
 }
 
 .logo-sub {
-    color: #7CFF6B;
-    font-size: 14px;
+    font-size: 0.875rem;
+    color: #8CDA3FB3;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
 }
 
 .nav-menu {
@@ -1250,7 +1262,7 @@ body {
 
 .panier-header h2 {
     margin: 0;
-    color: #7CFF6B;
+    color: #8CDA3FB3;
     font-size: 24px;
     font-weight: 600;
 }
@@ -1258,7 +1270,7 @@ body {
 /* Close Button */
 .close {
     font-size: 24px;
-    color: #7CFF6B;
+    color: #8CDA3FB3;
     cursor: pointer;
     padding: 5px;
 }

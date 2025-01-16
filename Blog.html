@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="blog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <style>
     .main-content {
@@ -111,7 +113,8 @@
          <div class="bg">
             <div >
                    <div class="para">
-                      <p>Administrateur 6 déc. 2022   2 min de lecture</p>
+                      <p>Administrateur 6 déc</p>
+                      <p> 2022   2 min de lecture</p>
                    </div>
 
                    <div class="para">
@@ -134,7 +137,8 @@
       <div class="bg">
          <div >
                 <div class="para">
-                <p>Administrateur   6 déc. 2022 1 min de lecture</p>
+                <p>Administrateur   6 déc</p>
+                <p>  2022 1 min de lecture</p>
                 </div>
 
                 <div class="para">
@@ -160,8 +164,9 @@
          <div >
                 <div class="para">
                 <p>Administrateur
-                    6 déc. 2022
-                    2 min de lecture</p>
+                    6 déc </p>
+                    <p> 2022
+                        2 min de lecture</p>
                 </div>
 
                 <div class="para">
@@ -184,7 +189,8 @@
      <div class="bg">
         <div >
                <div class="para">
-               <p>Administrateur   6 déc. 2022 2 min de lecture </p>
+               <p>Administrateur   6 déc  </p>
+               <p>2022 2 min de lecture</p>
                </div>
 
                <div class="para">
@@ -211,7 +217,8 @@
      <div class="bg">
         <div >
                <div class="para">
-               <p>Administrateur   6 déc. 2022 2 min de lecture </p>
+               <p>Administrateur   6 déc </p>
+               <p>2022 2 min de lecture</p>
                </div>
 
                <div class="para">
@@ -238,7 +245,8 @@
      <div class="bg">
         <div >
                <div class="para">
-               <p>Administrateur   6 déc. 2022 2 min de lecture </p>
+               <p>Administrateur   6 déc</p>
+               <p>2022 2 min de lecture</p>
                </div>
 
                <div class="para">
@@ -770,6 +778,16 @@ document.addEventListener('DOMContentLoaded', () => {
 //`;
 //document.head.appendChild(style);
 
+document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.querySelector('.logo');
+    
+    if (logo) {
+    logo.addEventListener('click', () => {
+        window.location.href = 'home.html'; // Navigate to home.html
+    });
+}
+
+});
     </script>
 </body>
 </html>

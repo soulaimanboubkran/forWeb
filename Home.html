@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 <style>
     .main-content {
@@ -20,6 +22,7 @@
 
 
     <header class="main-header">
+        
         <div class="logo">
             <div class="logo-main">CX</div>
             <div class="logo-sub">CapacityX</div>
@@ -115,7 +118,11 @@
                 <div class="hero-image">
                     <div class="image-container">
                         <img src="images/pouch-headera.avif" alt="Pre Workout Supplement" class="active">
+                        
+                        <img src="images/p5t.png"  alt="Pre Workout Supplement">
                         <img src="images/pouch-headerc.avif" alt="Pre Workout Supplement">
+                        <img src="images/towt.png" alt="Pre Workout Supplement">
+                        
                     </div>
                 </div>
             </div>
@@ -166,7 +173,7 @@
                     <p class="placeholder-text">Paragraphe. Vous pouvez le modifier et ajouter votre texte.
                         Double-cliquez ici ou cliquez sur « Modifier le texte » pour ajouter votre contenu et
                         personnaliser la police.</p>
-                    <a href="#" class="learn-more-btn">EN SAVOIR PLUS</a>
+                    <a href="Apropos.html" class="learn-more-btn">EN SAVOIR PLUS</a>
                 </div>
                 <div class="objectives-image-container">
                     <div class="border-overlay"></div>
@@ -183,12 +190,12 @@
                 </div>
                 <div class="goal-options">
                     <div class="goal-option">
-                        <h3>MUSCLE ET FORCE</h3>
-                        <button class="choose-btn">CHOISIR</button>
+                        <h3>MUSCLE ET FORCE</h3><a href="Boutique.html" style="text-decoration: none;color: white;">
+                        <button class="choose-btn">CHOISIR</button></a>
                     </div>
-                    <div class="goal-option">
-                        <h3>PERFORMANCE ET CONCENTRATION</h3>
-                        <button class="choose-btn">CHOISIR</button>
+                    <div class="goal-option"> 
+                        <h3>PERFORMANCE ET CONCENTRATION</h3><a href="Boutique.html" style="text-decoration: none;color: white;">
+                        <button class="choose-btn">CHOISIR</button></a>
                     </div>
                 </div>
             </div>
@@ -226,8 +233,8 @@
                 
             </div>
         </section>
-        <section class="last-section">
-            <button class="btn">LIRE PLUS</button>
+        <section class="last-section"><a href="Blog.html" style="text-decoration: none;color: white;">
+            <button class="btn">LIRE PLUS</button></a>
             <h2 class="section-title2">INSCRIVEZ-VOUS POUR DES OFFRES EXCLUSIVES DE L'ÉQUIPE CX</h2>
             <form class="subscription-form" action="#" method="POST">
                 <div class="input-container">
@@ -261,12 +268,12 @@
             <div class="footer-section">
                 <h3>Menu</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">À propos</a></li>
-                    <li><a href="#">Boutique</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Demander à l'expert</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="Home.html">Accueil</a></li>
+                    <li><a href="Apropos.html">À propos</a></li>
+                    <li><a href="Boutique.html">Boutique</a></li>
+                    <li><a href="Blog.html">Blog</a></li>
+                  
+                    <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </div>
 
@@ -324,7 +331,7 @@
             images[currentIndex].classList.add('active');
         }
         //
-        setInterval(swapImages, 3000);
+        setInterval(swapImages, 2500);
 
 
         document.querySelectorAll('.product-image img').forEach(img => {
@@ -747,6 +754,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.querySelector('.logo');
+    
+    if (logo) {
+    logo.addEventListener('click', () => {
+        window.location.href = 'home.html'; // Navigate to home.html
+    });
+}
+
+});
 
 
 //// Add this CSS for the success message
