@@ -444,7 +444,7 @@ function initializeGallery() {
         });
    
 
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const currentProductId = parseInt(urlParams.get('id'), 10);
 
@@ -536,8 +536,8 @@ function initializeGallery() {
         // (Your existing update product display code here)
     }
 
-    // CartManager object
-    const cartManager = {
+  // CartManager object
+  const cartManager = {
         getCartItems() {
             return JSON.parse(localStorage.getItem('cart') || '[]');
         },
@@ -585,6 +585,7 @@ function initializeGallery() {
             const cartItems = this.getCartItems();
             const productDetails = document.querySelector('.modal .product-details');
             
+            // Initialize modal content if the cart is empty
             if (cartItems.length === 0) {
                 productDetails.innerHTML = `
                     <div class="empty-cart">
@@ -613,12 +614,12 @@ function initializeGallery() {
                                 ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ''}
                             </div>
                             <p class="type">Type: ${item.type}</p>
-                            <div class="quantity-controls">
-                                <button onclick="cartManager.updateQuantity(${item.id}, -1)" class="quantity-btn minus">-</button>
-                                <span class="quantity">${item.quantity}</span>
-                                <button onclick="cartManager.updateQuantity(${item.id}, 1)" class="quantity-btn plus">+</button>
-                                <button onclick="cartManager.removeItem(${item.id})" class="remove-btn">Supprimer</button>
-                            </div>
+                             <div class="quantity-controls">
+                        <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        <button class="remove-btn" data-id="${item.id}">Supprimer</button>
+                    </div>
                         </div>
                     </div>
                 `;
@@ -633,6 +634,32 @@ function initializeGallery() {
             `;
 
             productDetails.innerHTML = cartHtml;
+
+    // Now, attach event listeners to the buttons
+    const minusButtons = document.querySelectorAll('.quantity-btn.minus');
+    const plusButtons = document.querySelectorAll('.quantity-btn.plus');
+    const removeButtons = document.querySelectorAll('.remove-btn');
+
+    minusButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const itemId = parseInt(button.getAttribute('data-id'), 10);
+            cartManager.updateQuantity(itemId, -1);
+        });
+    });
+
+    plusButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const itemId = parseInt(button.getAttribute('data-id'), 10);
+            cartManager.updateQuantity(itemId, 1);
+        });
+    });
+
+    removeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const itemId = parseInt(button.getAttribute('data-id'), 10);
+            cartManager.removeItem(itemId);
+        });
+    });
         },
 
         updateQuantity(itemId, change) {
@@ -660,6 +687,11 @@ function initializeGallery() {
             this.updateModal();
         }
     };
+
+    // Initialize cart count from localStorage
+    cartManager.updateCartCount();
+    // Update modal with current cart state
+    cartManager.updateModal();
 
     // Modal logic for opening/closing
     const modal = document.getElementById('modal');
@@ -696,8 +728,7 @@ function initializeGallery() {
     }
 });
 
-
-// Add this CSS for the success message
+// Add styles for cart messages
 const style = document.createElement('style');
 style.textContent = `
     .add-to-cart-message {
@@ -710,6 +741,7 @@ style.textContent = `
         border-radius: 4px;
         animation: slideIn 0.3s ease-out;
         z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     @keyframes slideIn {
@@ -721,6 +753,17 @@ style.textContent = `
             transform: translateX(0);
             opacity: 1;
         }
+    }
+
+    .cart-count {
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        position: absolute;
+        top: -8px;
+        right: -8px;
     }
 `;
 document.head.appendChild(style);
