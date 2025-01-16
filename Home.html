@@ -51,7 +51,7 @@
 
                 <div class="login-cart">
                     <span>Connexion</span>
-                    <div class="cart-icon">
+                    <div class="cart-icon" id="cartButton">
                         🛒
                         <span class="cart-count">0</span>
                     </div>
@@ -61,6 +61,27 @@
 
         <div class="overlay"></div>
     </header>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="product-details">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=500&auto=format&fit=crop" 
+                         alt="Protein Powder"
+                         class="main-image">
+                </div>
+                <div class="product-info">
+                    <h2>Protéine en poudre - Vanille</h2>
+                    <div class="price-container">
+                        <span class="price">$29.99</span>
+                        <span class="discount">-20%</span>
+                    </div>
+                    <p class="type">Type: powder</p>
+                    <button class="add-to-cart">AJOUTER AU PANIER</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Add this after the header -->
     <div class="social-sidebar">
         <a href="#" class="social-link facebook"><img src="icons8-facebook.svg" alt="Facebook Icon"></a>
@@ -85,7 +106,7 @@
                 <div class="hero-text">
                     <h1>SURPASSEZ-VOUS AVEC CAPACITYX</h1>
                     <p>Dépassez vos limites avec les suppléments CapacityX.</p>
-                    <a href="#" class="cta-button">ACHETER</a>
+                    <a href="Boutique.html" class="cta-button">ACHETER</a>
                 </div>
                 <div class="hero-image">
                     <div class="image-container">
@@ -99,13 +120,16 @@
         <section class="featured-products">
             <h2 class="section-title">PRODUITS VEDETTES</h2>
             <div class="products-grid">
+
                 <div class="product-card">
                     <div class="product-image">
                         <img src="images/p1.png" alt="Protein Powder" data-hover="images/p1h.png">
                     </div>
                     <div class="product-footer">
-                        AJOUTER AU PANIER
+                        <a href="Product.html?id=1&name=Protéine%20en%20poudre%20-%20Vanille&type=powder&price=29.99&discount=20&image=images%2Fp1.png&hoverImage=images%2Fp1h.png" style="text-decoration: none;color: black;">
+                            AJOUTER AU PANIER </a>
                     </div>
+               
                 </div>
 
                 <div class="product-card">
@@ -113,7 +137,8 @@
                         <img src="images/p2.png" alt="BCAA Capsules" data-hover="images/p2h.png">
                     </div>
                     <div class="product-footer">
-                        AJOUTER AU PANIER
+                        <a href="Product.html?id=2&name=BCAA%20200%20capsules&type=capsules&price=35&discount=15&image=images%2Fp2.png&hoverImage=images%2Fp2h.png" style="text-decoration: none;color: black;">
+                            AJOUTER AU PANIER </a>
                     </div>
                 </div>
 
@@ -122,7 +147,8 @@
                         <img src="images/p3.png" alt="Pre Workout" data-hover="images/p3h.png">
                     </div>
                     <div class="product-footer">
-                        AJOUTER AU PANIER
+                        <a href="Product.html?id=3&name=Pré-entraînement%20-%20Multi%20fruits&type=pre-workout&price=45&discount=0&image=images%2Fp3.png&hoverImage=images%2Fp3h.png" style="text-decoration: none;color: black;">
+                            AJOUTER AU PANIER </a>
                     </div>
                 </div>
             </div>
@@ -309,6 +335,444 @@
                 img.src = originalSrc;
             });
         });
+        
+// Product data structure
+const products = [
+    {
+        id: 1,
+        name: "Protéine en poudre - Vanille",
+        price: 29.99,
+        type: "powder",
+        discount: 20,
+        image: "images/p1.png",
+        hoverImage: "images/p1h.png"
+    },
+    {
+        id: 2,
+        name: "BCAA 200 capsules",
+        price: 35.00,
+        type: "capsules",
+        discount: 15,
+        image: "images/p2.png",
+        hoverImage: "images/p2h.png"
+    },
+    {
+        id: 3,
+        name: "Pré-entraînement - Multi fruits",
+        price: 45.00,
+        discount: 0,
+        type: "pre-workout",
+        image: "images/p3.png",
+        hoverImage: "images/p3h.png"
+    },
+    {
+        id: 4,
+        name: "Protein Shake Mix",
+        price: 39.99,
+        type: "powder",
+        discount: 30,
+        image: "images/p1.png",
+        hoverImage: "images/p1h.png"
+    },
+    {
+        id: 5,
+        name: "BCAA en capsules",
+        price: 15.00,
+        type: "capsules",
+        discount: 12,
+        image: "images/p4.png",
+        hoverImage: "images/p4h.png"
+    },
+    {
+        id: 6,
+        name: "BCAA 200 capsules",
+        price: 35.00,
+        type: "capsules",
+        discount: 30,
+        image: "images/p5.png",
+        hoverImage: "images/p5h.png"
+    },
+    {
+        id: 7,
+        name: "Protéine en poudre - Cookies et crème",
+        price: 50.99,
+        type: "powder",
+        discount: 30,
+        image: "images/p6.png",
+        hoverImage: "images/p6h.png"
+    },
+    {
+        id: 8,
+        name: "Protéine en poudre - Chocolat",
+        price: 50.99,
+        type: "powder",
+        discount: 30,
+        image: "images/p7.png"
+    },
+    {
+        id: 9,
+        name: "Protéine en poudre - Beurre de cacahouète",
+        price: 50.99,
+        type: "powder",
+        discount: 30,
+        image: "images/p8.png"
+    },
+    {
+        id: 10,
+        name: "Protéine en poudre - Cappuccino",
+        price: 50.99,
+        type: "powder",
+        discount: 30,
+        image: "images/p9.png"
+    },
+    {
+        id: 11,
+        name: "Pré-entraînement - Framboise",
+        price: 23.99,
+        type: "pre-workout",
+        discount: 30,
+        image: "images/p10.png",
+        hoverImage: "images/p10h.png"
+    },
+    {
+        id: 12,
+        name: "Pré-entraînement - Pastèque",
+        price: 25.99,
+        type: "pre-workout",
+        discount: 30,
+        image: "images/p11.png"
+    },
+    {
+        id: 13,
+        name: "Pré-entraînement - Cerise",
+        price: 44.99,
+        type: "pre-workout",
+        discount: 22,
+        image: "images/p12.png"
+    },
+    {
+        id: 14,
+        name: "Pré-entraînement - Pomme verte",
+        price: 25.99,
+        type: "pre-workout",
+        discount: 34,
+        image: "images/p13.png"
+    },
+    {
+        id: 15,
+        name: "Pré-entraînement - Limonade",
+        price: 23.99,
+        type: "pre-workout",
+        discount: 22,
+        image: "images/p14.png"
+    }
+];
+// Initialize Stripe with your publishable key
+
+// Cart Manager Class
+class CartManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.updateCartCount();
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        // Cart button and modal setup
+        const modal = document.getElementById('modal');
+        const cartButton = document.getElementById('cartButton');
+        const closeButton = document.querySelector('.close');
+
+        cartButton?.addEventListener('click', () => {
+            this.updateModal();
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeButton?.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'unset';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'unset';
+            }
+        });
+
+        
+
+        // Setup checkout button
+        const checkoutButton = document.querySelector('.checkout-btn');
+        checkoutButton?.addEventListener('click', () => this.handleCheckout());
+    }
+
+    extractProductFromParams(urlParams) {
+        return {
+            id: parseInt(urlParams.get('id')),
+            name: urlParams.get('name'),
+            price: parseFloat(urlParams.get('price')),
+            discount: parseFloat(urlParams.get('discount')),
+            type: urlParams.get('type'),
+            image: urlParams.get('image')
+        };
+    }
+
+    getCartItems() {
+        try {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        } catch (error) {
+            console.error('Error parsing cart items:', error);
+            return [];
+        }
+    }
+
+    saveCartItems(items) {
+        try {
+            localStorage.setItem('cart', JSON.stringify(items));
+        } catch (error) {
+            console.error('Error saving cart items:', error);
+        }
+    }
+
+    calculateFinalPrice(price, discount) {
+        return discount ? price * (1 - discount / 100) : price;
+    }
+
+    addToCart(product) {
+        const cartItems = this.getCartItems();
+        const existingItem = cartItems.find(item => item.id === product.id);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push({
+                ...product,
+                quantity: 1
+            });
+        }
+
+        this.saveCartItems(cartItems);
+        this.updateCartCount();
+        this.displayAddToCartMessage();
+        this.updateModal();
+    }
+
+    updateCartCount() {
+        const cartItems = this.getCartItems();
+        const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+        const cartCountElement = document.querySelector('.cart-count');
+        if (cartCountElement) {
+            cartCountElement.textContent = totalItems;
+        }
+    }
+
+    
+
+    updateQuantity(itemId, change) {
+        const cartItems = this.getCartItems();
+        const item = cartItems.find(item => item.id === itemId);
+        
+        if (item) {
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                this.removeItem(itemId);
+                return;
+            }
+            this.saveCartItems(cartItems);
+            this.updateCartCount();
+            this.updateModal();
+        }
+    }
+
+    removeItem(itemId) {
+        const cartItems = this.getCartItems();
+        const updatedItems = cartItems.filter(item => item.id !== itemId);
+        this.saveCartItems(updatedItems);
+        this.updateCartCount();
+        this.updateModal();
+    }
+
+    updateModal() {
+        const cartItems = this.getCartItems();
+        const productDetails = document.querySelector('.modal .product-details');
+        if (!productDetails) return;
+
+        if (cartItems.length === 0) {
+            productDetails.innerHTML = `
+                <div class="empty-cart">
+                    <h2>Votre panier est vide</h2>
+                </div>
+            `;
+            return;
+        }
+
+        let cartHtml = '';
+        let totalPrice = 0;
+
+        cartItems.forEach((item, index) => {
+            const finalPrice = this.calculateFinalPrice(item.price, item.discount);
+            totalPrice += finalPrice * item.quantity;
+
+            cartHtml += this.generateCartItemHtml(item, index, finalPrice);
+        });
+
+        cartHtml += this.generateCartTotalHtml(totalPrice);
+        productDetails.innerHTML = cartHtml;
+    }
+
+    generateCartItemHtml(item, index, finalPrice) {
+        return `
+            <div class="product-details" ${index > 0 ? 'style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;"' : ''}>
+                <div class="product-image">
+                    <img src="${item.image}" alt="${item.name}" class="main-image">
+                </div>
+                <div class="product-info">
+                    <h2>${item.name}</h2>
+                    <div class="price-container">
+                        <span class="price">${finalPrice.toFixed(2)}€</span>
+                        ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ''}
+                    </div>
+                    <p class="type">Type: ${item.type}</p>
+                    <div class="quantity-controls">
+                        <button onclick="cartManager.updateQuantity(${item.id}, -1)" class="quantity-btn minus">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button onclick="cartManager.updateQuantity(${item.id}, 1)" class="quantity-btn plus">+</button>
+                        <button onclick="cartManager.removeItem(${item.id})" class="remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    generateCartTotalHtml(totalPrice) {
+        return `
+            <div class="cart-total">
+                <h3>Total: ${totalPrice.toFixed(2)}€</h3>
+                <button class="checkout-btn">Proceed to Checkout</button>
+            </div>
+        `;
+    }
+
+
+   
+}
+
+// Initialize cart manager when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.cartManager = new CartManager();
+});
+
+// Add styles for cart messages
+const style = document.createElement('style');
+style.textContent = `
+    .add-to-cart-message {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 4px;
+        animation: slideIn 0.3s ease-out;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .cart-count {
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+    }
+`;
+document.head.appendChild(style);
+// Initialize cart functionality
+document.addEventListener('DOMContentLoaded', () => {
+
+   
+
+    // Initialize cart count from localStorage
+    cartManager.updateCartCount();
+
+   
+
+    // Cart modal functionality
+    const modal = document.getElementById('modal');
+    const cartButton = document.getElementById('cartButton');
+    const closeButton = document.querySelector('.close');
+
+    cartButton.addEventListener('click', () => {
+        cartManager.updateModal();
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+
+    closeButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'unset';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'unset';
+        }
+    });
+    
+});
+
+
+
+
+//// Add this CSS for the success message
+//const style = document.createElement('style');
+//style.textContent = `
+//    .add-to-cart-message {
+//        position: fixed;
+//        bottom: 20px;
+//        right: 20px;
+//        background-color: #4CAF50;
+//        color: white;
+//        padding: 15px 25px;
+//        border-radius: 4px;
+//        animation: slideIn 0.3s ease-out;
+//        z-index: 1000;
+//    }
+//
+//    @keyframes slideIn {
+//        from {
+//            transform: translateX(100%);
+//            opacity: 0;
+//        }
+//        to {
+//            transform: translateX(0);
+//            opacity: 1;
+//        }
+//    }
+//`;
+//document.head.appendChild(style);
+
 
     </script>
 </body>
